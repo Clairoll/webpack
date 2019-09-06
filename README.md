@@ -73,7 +73,7 @@ module.exports = {
 
 webpack配置
 
-```json
+```javascript
 const path = require("path");
 module.exports = {
   entry: {
