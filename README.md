@@ -224,34 +224,6 @@ module.exports = {
 };
 ```
 
-#### 热更新
-
-在打包生成 html 时自己启动，并在每次修改代码后自动更新页面
-
-```javascript
-var path = require("path");
-var HtmlwebpackPlugin = require("html-webpack-plugin");
-module.exports = {
-  entry: "./src/main.js",
-  output: {
-    filename: "build.js",
-    path: path.join(__dirname, "/dist")
-  },
-  plugins: [
-    // 打包的时候生成html
-    new HtmlwebpackPlugin({
-      title: "Webpack-demos"
-    })
-  ],
-  // 热更新
-  devServer: {
-    contentBase: path.join(__dirname, "/dist"),
-    compress: true,
-    port: 9999
-  }
-};
-```
-
 ### 输出管理
 
 #### 打包自动生成 html
@@ -294,12 +266,12 @@ module.exports = {
 
 使用`npm install clean-webpack-plugin --save-dev`下载相关依赖，具体见案例<a href="./demo-cleanDist">demo-cleanDist</a>
 
-配置webpack
+配置 webpack
 
 ```javascript
 var path = require("path");
 var HtmlwebpackPlugin = require("html-webpack-plugin");
-var {CleanWebpackPlugin} = require("clean-webpack-plugin");
+var { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
   entry: "./src/main.js",
 
@@ -316,6 +288,34 @@ module.exports = {
     path: path.join(__dirname, "/dist")
   }
 };
-
 ```
 
+### 开发
+
+#### 热更新
+
+在打包生成 html 时自己启动，并在每次修改代码后自动更新页面
+
+```javascript
+var path = require("path");
+var HtmlwebpackPlugin = require("html-webpack-plugin");
+module.exports = {
+  entry: "./src/main.js",
+  output: {
+    filename: "build.js",
+    path: path.join(__dirname, "/dist")
+  },
+  plugins: [
+    // 打包的时候生成html
+    new HtmlwebpackPlugin({
+      title: "Webpack-demos"
+    })
+  ],
+  // 热更新
+  devServer: {
+    contentBase: path.join(__dirname, "/dist"),
+    compress: true,
+    port: 9999
+  }
+};
+```
