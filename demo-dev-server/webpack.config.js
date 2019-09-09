@@ -12,7 +12,7 @@ module.exports = {
       title: "Webpack-demos"
     })
   ],
-  // 热更新
+  // 服务
   devServer: {
     contentBase: path.join(__dirname, "/dist"),
     compress: true,
