@@ -15,7 +15,8 @@ module.exports = {
   // 服务
   devServer: {
     contentBase: path.join(__dirname, "/dist"),
-    compress: true,
-    port: 9999
+    compress: true, // 启动压缩
+    port: 9999,// 启动服务端口
+    hot:true ,// 启动热加载
   }
 };
