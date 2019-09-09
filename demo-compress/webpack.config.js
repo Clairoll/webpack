@@ -17,7 +17,7 @@ module.exports = {
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
-          compress: false
+          compress: true
         }
       })
     ]
