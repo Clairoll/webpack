@@ -1,6 +1,5 @@
 var path = require("path");
 var HtmlwebpackPlugin = require("html-webpack-plugin");
-var OpenBrowserPlugin = require("open-browser-webpack-plugin");
 module.exports = {
   entry: "./src/main.js",
   output: {

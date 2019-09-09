@@ -1,4 +1,4 @@
-# webpack 学习记录文档
+# ##webpack 学习记录文档
 
 ## 一、安装
 
@@ -95,7 +95,204 @@ module.exports = {
 
 ```
 
+### 加载图片
 
+使用` npm i file-loader url-loader`，具体可以看案例<a href="./demo-img">demo-img</a>
+
+webpack配置
+
+```javascript
+const path = require('path')
+module.exports = {
+    // 入口文件
+    entry: {
+        index:'./src/main.js'
+    },
+    // 输出文件
+    output: {
+        filename:'build.js',
+        path:path.join(__dirname,'/dist') // 输出文件路径
+    },
+    module: {
+        rules: [
+            { 
+                test: /\.(png|jpg)$/, 
+                loader: 'url-loader?limit=8192'
+            } //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
+        ]
+    }
+}
+```
+
+### 打包自动生成html
+
+使用`npm i html-webpack-plugin`下载对应的处理包，具体可以看案例<a href="./demo-html">demo-html</a>
+
+webpack配置
+
+```javascript
+const path = require("path");
+var HtmlwebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+  // 入口文件
+  entry: {
+    index: "./src/main.js"
+  },
+  // 输出文件
+  output: {
+    filename: "build.js",
+    path: path.join(__dirname, "/dist") // 输出文件路径
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        loader: "url-loader?limit=8192"
+      } //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
+    ]
+  },
+  plugins: [
+      // 打包的时候生成html
+    new HtmlwebpackPlugin({
+      title: "Webpack-demos"
+    })
+  ]
+};
+
+```
+
+
+### 加载JSX语法（React）
+
+使用 `npm i react react-dom `安装react相关，在使用`npm i babel-preset-react babel-preset-es2015 babel-loader babel-core`安装相关babel，具体见案例<a href="./demo-react">demo-react</a>
+
+webpack配置
+
+```javascript
+const path = require('path')
+module.exports = {
+    // 入口文件
+    entry: {
+        index:'./src/main.js'
+    },
+    // 输出文件
+    output: {
+        filename:'build.js',
+        path:path.join(__dirname,'/dist') // 输出文件路径
+    },
+    module: {
+        rules: [
+            {
+                test:/\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',   //.jsx文件使用babel处理
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }
+        ]
+    }
+}
+```
+### css模块化
+
+使用`npm i css-loader style-loader`，具体见案例<a href="./demo-css-module">demo-css-module</a>
+
+webpack配置
+
+```javascript
+const path = require("path");
+module.exports = {
+  entry: {
+    index: "./src/main.jsx"
+  },
+  output: {
+    filename: "build.js",
+    path: path.join(__dirname, "/dist") // 输出文件路径
+  },
+  module: {
+    rules: [
+        {
+            test:/\.jsx?$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',   //.jsx文件使用babel处理
+            query: {
+                presets: ['es2015', 'react']
+            }
+        },
+        {
+            test: /\.css$/,
+            loader: 'style-loader!css-loader?modules'
+        }
+    ]
+  }
+};
+
+```
+
+### 压缩打包
+
+使用`npm i uglifyjs-webpack-plugin`下载相关处理，具体见案例<a href="./demo-compress">demo-compress</a>
+
+webpack配置
+
+```javascript
+var path = require("path");
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var HtmlwebpackPlugin = require("html-webpack-plugin");
+module.exports = {
+  entry: "./src/main.js",
+  output: {
+    filename: "build.js",
+    path: path.join(__dirname, "/dist")
+  },
+  plugins: [
+    // 打包的时候生成html
+    new HtmlwebpackPlugin({
+      title: "Webpack-demos"
+    })
+  ],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: false
+        }
+      })
+    ]
+  }
+};
+
+```
+
+### 热更新
+
+在打包生成html时自己启动，并在每次修改代码后自动更新页面
+
+```javascript
+var path = require("path");
+var HtmlwebpackPlugin = require("html-webpack-plugin");
+module.exports = {
+  entry: "./src/main.js",
+  output: {
+    filename: "build.js",
+    path: path.join(__dirname, "/dist")
+  },
+  plugins: [
+    // 打包的时候生成html
+    new HtmlwebpackPlugin({
+      title: "Webpack-demos"
+    })
+  ],
+  // 热更新
+  devServer: {
+    contentBase: path.join(__dirname, "/dist"),
+    compress: true,
+    port: 9999
+  }
+};
+
+```
 
 
 
